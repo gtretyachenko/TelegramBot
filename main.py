@@ -1,15 +1,22 @@
 # -*- coding: utf-8 -*-
 
+#API Telegram
 import telebot
 from telebot import types
-import config
+#Open Word files with html grid
+import mammoth
+#Using config file in project
+import configparser
 
-bot = telebot.TeleBot('6504913495:AAF53ujq-R8GLGfMzmy01VPKMW1Ueyge3y8')
+config = configparser.ConfigParser()
+config.read('config.ini')
+TG_TOKEN = config['TELEGRAM']['token']
 
+bot = telebot.TeleBot(TG_TOKEN)
 
 @bot.message_handler(commands=['go', 'start'])  # Обработка команды для старта
 def welcome(message):
-    sti = open('welcome_start_sticker.webp', 'rb')
+    sti = open('_stickers/welcome_start_sticker.webp', 'rb')
     bot.send_sticker(message.chat.id, sti)
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
 
